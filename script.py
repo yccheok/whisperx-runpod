@@ -5,14 +5,14 @@ import whisperx
 os.environ["XDG_CACHE_HOME"] = "/app/.cache"
 
 # Set the device; use "cuda" if you have a supported GPU, otherwise "cpu"
-device = "cuda"
+device = "cpu"
 
 # Path to your audio file (e.g., WAV or MP3)
 audio_file = "audio.mp3"
 
 # Load the WhisperX model using the "large-v3" version and a lighter compute type if needed
 print("👉 whisperx.load_model")
-model = whisperx.load_model("large-v3", device=device, compute_type="float16")
+model = whisperx.load_model("large-v3", device=device, compute_type="int8")
 
 # Load the audio data
 print("👉 whisperx.load_audio")
