@@ -14,7 +14,7 @@ RUN pip install --upgrade pip && pip install --no-cache-dir whisperx
 COPY script.py .
 COPY audio.mp3 .
 # Download large-v3 model into /app/.cache
-RUN python script.py
+#RUN python script.py
 
 # Set the default command to bash so you get an interactive shell
 CMD ["/bin/bash"]
