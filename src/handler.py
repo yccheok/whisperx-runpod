@@ -16,7 +16,7 @@ def run_whisperx_job(job):
     print("Transcribing...")
     result = model.transcribe(audio, batch_size=16)
     print("🎉 Transcription done:")
-    print(result["segments"])
+    print(result)
 
     return result["segments"]
 
