@@ -16,8 +16,16 @@ def run_whisperx_job(job):
     print("Transcribing...")
     result = model.transcribe(audio, batch_size=16)
     print("🎉 Transcription done:")
-    print(result)
+    #print(result)
 
-    return result["segments"]
+    # For easy migration, we are following the output format of runpod's 
+    # official faster whisper.
+    # https://github.com/runpod-workers/worker-faster_whisper/blob/main/src/predict.py#L111
+    output = {
+        'detected_language' : result['language'],
+        'segments' : result['segments']
+    }
+
+    return output
 
 runpod.serverless.start({"handler": run_whisperx_job})
