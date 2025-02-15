@@ -1,4 +1,5 @@
 import os
+import time
 import whisperx
 
 # Store cached models inside /app/.cache
@@ -12,15 +13,24 @@ audio_file = "audio.mp3"
 
 # Load the WhisperX model using the "large-v3" version and a lighter compute type if needed
 print("👉 whisperx.load_model")
+start_time = time.time()
 model = whisperx.load_model("large-v3", device=device, compute_type="int8")
+end_time = time.time()
+print(f"✅ Model loaded in {end_time - start_time:.2f} seconds")
 
 # Load the audio data
 print("👉 whisperx.load_audio")
+start_time = time.time()
 audio = whisperx.load_audio(audio_file)
+end_time = time.time()
+print(f"✅ Audio loaded in {end_time - start_time:.2f} seconds")
 
 # Run the transcription
 print("👉 model.transcribe")
+start_time = time.time()
 result = model.transcribe(audio)
+end_time = time.time()
+print(f"✅ Transcribe done in {end_time - start_time:.2f} seconds")
 
 print("👉 result[\"segments\"]")
 # Print the transcription segments with timestamps
