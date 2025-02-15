@@ -2,7 +2,7 @@ import os
 import whisperx
 
 # Store cached models inside /app/.cache
-os.environ["XDG_CACHE_HOME"] = "/app/.cache"
+os.environ["HF_HOME"] = "/app/.cache"
 
 # Set the device; use "cuda" if you have a supported GPU, otherwise "cpu"
 device = "cpu"
