@@ -8,16 +8,13 @@ RUN apt-get update && \
     apt-get install -y ffmpeg vim
 
 # Install WhisperX via pip
-RUN pip install --upgrade pip && pip install --no-cache-dir whisperx
+RUN pip install --upgrade pip && pip install --no-cache-dir runpod whisperx
 
-# Download large-v3 model into /app/.cache
+# Download large-v3 model
 RUN python -c "import whisperx; whisperx.load_model('large-v3', device='cpu', compute_type='int8')"
 
-# Copy your Python script into the container
-COPY script.py .
-COPY audio.mp3 .
-RUN python script.py
-RUN python script.py
+# Copy source code into image
+COPY src src
 
-# Set the default command to bash so you get an interactive shell
-CMD ["/bin/bash"]
+# -u disables output buffering so logs appear in real-time.
+CMD [ "python", "-u", "src/handler.py" ]
