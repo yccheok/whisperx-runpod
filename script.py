@@ -18,7 +18,13 @@ def print_cache_contents():
     else:
         print("\n🚫 /app/.cache directory does not exist")
 
-# Print cache contents before loading the model
+def print_all_app_folders():
+    print("\n📂 Listing all directories under /app:")
+    for item in os.listdir("/app"):
+        print("📁", item)
+
+# Check contents before model loading
+print_all_app_folders()
 print_cache_contents()
 
 # Set the device; use "cuda" if you have a supported GPU, otherwise "cpu"
@@ -34,7 +40,8 @@ model = whisperx.load_model("large-v3", device=device, compute_type="int8")
 end_time = time.time()
 print(f"✅ Model loaded in {end_time - start_time:.2f} seconds")
 
-# Print cache contents after loading the model
+# Check contents after model loading
+print_all_app_folders()
 print_cache_contents()
 
 # Load the audio data
