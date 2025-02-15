@@ -5,6 +5,22 @@ import whisperx
 # Store cached models inside /app/.cache
 os.environ["HF_HOME"] = "/app/.cache"
 
+# Function to print the contents of the cache directory
+def print_cache_contents():
+    cache_dir = "/app/.cache"
+    if os.path.exists(cache_dir):
+        print("\n📂 Contents of /app/.cache:")
+        for root, dirs, files in os.walk(cache_dir):
+            for name in files:
+                file_path = os.path.join(root, name)
+                file_size = os.path.getsize(file_path) / (1024 * 1024)  # Convert to MB
+                print(f"📄 {file_path} ({file_size:.2f} MB)")
+    else:
+        print("\n🚫 /app/.cache directory does not exist")
+
+# Print cache contents before loading the model
+print_cache_contents()
+
 # Set the device; use "cuda" if you have a supported GPU, otherwise "cpu"
 device = "cpu"
 
@@ -17,6 +33,9 @@ start_time = time.time()
 model = whisperx.load_model("large-v3", device=device, compute_type="int8")
 end_time = time.time()
 print(f"✅ Model loaded in {end_time - start_time:.2f} seconds")
+
+# Print cache contents after loading the model
+print_cache_contents()
 
 # Load the audio data
 print("👉 whisperx.load_audio")
