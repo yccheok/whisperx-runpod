@@ -10,14 +10,16 @@ def run_whisperx_job(job):
     start_time = time.time()
 
     job_input = job['input']
+    
     url = job_input.get('url', "")
+    language = job_input.get('language', None)
 
     print(f"🚧 Loading audio from {url}...")
     audio = whisperx.load_audio(url)
     print("✅ Audio loaded")
 
-    print("Transcribing...")
-    result = model.transcribe(audio, batch_size=16)
+    print(f"🌎 Transcribing using language {language}...")
+    result = model.transcribe(audio, batch_size=16, language=language)
 
     end_time = time.time()
     time_s = (end_time - start_time)
