@@ -12,7 +12,10 @@ RUN pip install --upgrade pip && \
     pip install --no-cache-dir runpod==1.7.7 whisperx==3.3.1 pyannote.audio
 
 # Download large-v3 model
-RUN python -c "import whisperx; whisperx.load_model('large-v3', device='cpu', compute_type='int8'); whisperx.DiarizationPipeline(use_auth_token='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', device='cpu')"
+RUN python -c "import whisperx; whisperx.load_model('large-v3', device='cpu', compute_type='int8')"
+
+# Initialize diarization pipeline
+RUN python -c "import whisperx; whisperx.DiarizationPipeline(use_auth_token='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', device='cpu')"
 
 # Copy source code into image
 COPY src src
